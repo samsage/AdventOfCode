@@ -1,5 +1,4 @@
-import string
-
+import time
 
 
 def reset():
@@ -32,11 +31,14 @@ inputs = {
 def run_tests():
     for input in inputs:
         expectedValue = inputs[input][1] if runHardTests else inputs[input][0]
+        testStart = time.process_time()
         print("Running ", input)
         reset()
         with open(input, encoding="utf-8") as file:
             parse(file)
             result = solve_hard() if runHardTests else solve_easy()
+            testTime = time.process_time() - testStart
+            print("Test executed in ", testTime, " seconds")
             if(expectedValue == None):
                 print("Result: ", result)
             elif result == expectedValue:
